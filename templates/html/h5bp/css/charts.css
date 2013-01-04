@@ -1,0 +1,12 @@
+body {
+	margin: 1em 5%;
+}
+
+.chart {
+	outline: 1px solid pink;
+}
+
+.chart rect {
+	stroke: white;
+	fill: steelblue;
+}
