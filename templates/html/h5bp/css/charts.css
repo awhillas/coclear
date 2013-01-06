@@ -3,10 +3,22 @@ body {
 }
 
 .chart {
-	outline: 1px solid pink;
+/*	outline: 1px solid pink;*/
 }
 
 .chart rect {
 	stroke: white;
 	fill: steelblue;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
 }
