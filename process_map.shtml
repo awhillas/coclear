@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>	   <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>		   <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>		   <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Ben & Jerrys, CoClear</title>
+	<meta name="description" content="CoClear is the...?">
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	
+	<!--#include virtual="header.html" -->
+</head>
+<body class="lca ProcessMap">
+	<!--#include virtual="menu-product.html" -->
+
+	<section>
+		<!--#include virtual="menu-lca.html" -->
+
+		<img src="img/process-map.gif" width="823" height="1012" alt="Process Map">
+
+	</section>
+
+
+	<!--#include virtual="javascripts.html" -->
+
+</body>
+</html>

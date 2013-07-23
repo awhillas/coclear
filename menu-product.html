@@ -1,0 +1,74 @@
+<!--[if lt IE 7]>
+	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+<header>
+	<h1 id="LOGO">Ben & Jerrys</h1>
+	<nav>
+		<ul id="ACCOUNT" class="Menu">
+			<li><a href="#">My Account</a></li>
+			<li><a href="#">Settings</a></li>
+			<li><a href="#">Sign Out</a></li>
+		</ul>
+	</nav>
+</header>
+
+<nav>
+	<ul id="SITE" class="Menu">
+		<li class="Dashboard"><a href="#">Dashboard</a></li>
+		<li class="Products Selected"><a href="index.shtml">Products</a></li>
+		<li class="CompanyBrands"><a href="#">Companies & Brands</a></li>
+		<li class="Help"><a href="#">Help</a></li>
+		<li class="Search"><input type="search" name="Find" results="5" placeholder="Search..."></li>
+	</ul>
+</nav>
+
+<header class="Product">
+	<h1>Vanilla Ice Cream</h1>
+	<nav>
+		<ul id="PRODUCT" class="Menu">
+			<li class="Overview"><a href="index.shtml">Overview</a></li>
+			<li class="lca"><a href="lca.shtml">Life Cycle Analysis</a></li>
+			<li class="Disclosure"><a href="disclosure-overview.shtml">Public Disclosure Summary</a></li>
+		</ul>
+	</nav>
+	<ul class="Options">
+		<li>
+			<select>
+				<option>Export</option>
+				<option>CSV</option>
+				<option>TSV</option>
+				<option>TSV for Excel</option>
+				<option>Excel (XLSX)</option>
+				<option>Google Spreadsheet</option>
+				<option>PDF</option>
+			</select>
+		</li>
+		<li id="SETTINGS" class="Popup">
+			<span class="ui-icon ui-icon-gear Upper"></span>
+			<div id="SETTINGS-MENU" class="Popper">
+				<div class="yui3-g">
+					<div class="yui3-u-1-4"><label for="UNIT">Unit of measurement</div>
+					<div class="yui3-u-1-4"><select><option>per pint</option></select></div>
+					<div class="yui3-u-1-4">electricity rate per kWh</div>
+					<div class="yui3-u-1-8"><input type="text" id="ELECTRICITY-RATE" name="ElectricityRate" /></div>
+					<div class="yui3-u-1-8"><span class="Currency">US$</span> <a href="#">edit</a></div>
+				</div>
+				<div class="yui3-g">
+					<div class="yui3-u-1-4">carbon price</div>
+					<div class="yui3-u-1-4"><select><option>EU Trading Scheme</option></select></div>
+					<div class="yui3-u-1-4">water rate per 100 cf</div>
+					<div class="yui3-u-1-8"><input type="text" id="WATER-RATE" name="WaterRate" /></div>
+					<div class="yui3-u-1-8"><span class="Currency">US$</span> <a href="#">edit</a></div>
+				</div>
+				<div class="yui3-g">
+					<div class="yui3-u-1-4">gasoline price</div>
+					<div class="yui3-u-1-4"><select name="PetrolRate"><option>US Regular / gallon</option></select></div>
+					<div class="yui3-u-1-4">landfill rate per ton</div>
+					<div class="yui3-u-1-8"><input type="text" id="LANDFILL-RATE" name="LandfillRate" /></div>
+					<div class="yui3-u-1-8"><span class="Currency">US$</span> <a href="#">edit</a></div>
+				</div>
+			</div>
+		</li>
+	</ul>
+</header>

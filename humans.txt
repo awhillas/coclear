@@ -1,14 +1,15 @@
-/* the humans responsible & colophon */
-/* humanstxt.org */
+# humanstxt.org/
+# The humans responsible & technology colophon
 
+# TEAM
 
-/* TEAM */
-  Computer Scientist: Alexander Whillas
-  Site: Web Gizmo
-  Twitter:	@webgizmo
-  Location: Berlin, Germany | Sydney, Australia
+    <name> -- <role> -- <twitter>
 
-/* SITE */
-  Standards: HTML5, CSS3
-  Components: Modernizr, jQuery
-  Software: Web Gizmo
+# THANKS
+
+    <name>
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    Normalize.css, jQuery, Modernizr

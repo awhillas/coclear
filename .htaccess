@@ -27,11 +27,9 @@ php_flag display_errors on
 # Security
 
 # disable directory browsing
-Options All -Indexes
+#Options All -Indexes
 # prevent folder listing
-IndexIgnore *
-
-
+#IndexIgnore *
 
 
 # Some stuff from HTML5 Boilerplate... 

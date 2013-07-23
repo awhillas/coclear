@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>	   <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>		   <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>		   <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Ben & Jerrys, CoClear</title>
+	<meta name="description" content="CoClear is the...?">
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	
+<!--#include virtual="header.html" -->
+	
+</head>
+<body class="Overview">
+	
+<!--#include virtual="menu-product.html" -->
+	
+
+	<section>
+		
+		<div class="yui3-g">
+			<div class="yui3-u-1-3">
+
+				<img src="/img/imgres.jpeg" width="225" height="225" alt="Imgres">
+
+			</div>
+			<div class="yui3-u-2-3">
+
+				<p>Smooth Vanilla Ice Cream (made with Fairtrade CertifiedTM vanilla)</p>
+				<p><strong>Distribution:</strong> Austria, Belgium, Canada, Czech Republic, Denmark, Finland, France, Germany, Greece, Hong Kong, Ireland, Israel, Italy, Japan, Mexico, Netherlands, Norway, Portugal, Singapore</p>
+				<p><strong>Parent Company:</strong> <a href="">Unilever</a></p>
+
+				<div id="CERT">
+					<a href="#"><img src="/img/carbon-neutral-product.jpg" width="80" height="71" alt="Carbon Neutral Product"></a>
+					<a href="#"><img src="/img/carbon-offset-standard.jpg" width="73" height="72" alt="Carbon Offset Standard"></a>
+					<a href="#"><img src="/img/audit-office.jpg" width="70" height="69" alt="Audit Office"></a>
+					<a href="#"><img src="/img/low-carbon-australia.jpg" width="126" height="58" alt="Low Carbon Australia"></a>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<section>
+		
+		<div class="yui3-g"><div class="yui3-u-1">
+			
+			<header>
+				<h2>2012 product performance at a glance</h2>
+			</header>
+			<table id="SUMMARY">
+				<tr>
+					<th>SKU 2034 
+						<select name="granularity" id="GRANULARITY">
+							<option value="annual">per annual production</option>
+							<option value="thousand">per 1000 units</option>
+							<option value="unit">per unit</option>
+						</select>
+					</th>
+					<th>total</th>
+					<th>cost</th>
+					<th colspan="2" class="AnnualPerformance">annual performance</th>
+				</tr>
+				<tr class="Waste">
+					<td class="Facet">Solid waste</td>
+					<td class="Total"></td>
+					<td class="TotalCost"></td>
+					<td><span class="Better">14.0% better than 2011</span></td>
+					<td><a href="#">view data</a></td>
+				</tr>
+				<tr class="Energy">
+					<td class="Facet">Energy use</td>
+					<td class="Total"></td>
+					<td class="TotalCost"></td>
+					<td><span class="Worse">0.13% worse than 2011</span></td>
+					<td><a href="#">view data</a></td>
+				</tr>
+				<tr class="Emissions">
+					<td class="Facet">GHG emissions</td>
+					<td class="Total"></td>
+					<td class="TotalCost"></td>
+					<td><span class="Worse">3.1% worse than 2011</span></td>
+					<td><a href="#">view data</a></td>
+				</tr>
+				<tr class="Sales">
+					<td class="Facet">Sales for financial year ending 30 June</td>
+					<td colspan="2"><strong><span class="Total"></span> units solid</strong></td>
+					<td><span class="Better">6.0% better than 2011</span></td>
+					<td><a href="#">view data</a></td>
+				</tr>
+			</table>
+		
+		</div></div>
+		
+	</section>
+	<section>
+		
+		<div class="yui3-g"><div class="yui3-u-1">
+			
+			<header>
+				<h2>Annual GHG contribution by Life Cycle Analysis Stage</h2>
+			</header>
+
+		</div></div>
+		
+	</section>
+	<section>
+		<!-- We are only doing a single year for now so all historical data is dummy (for now). -->
+		<table id="YEAR-BARS">
+			<tr>
+				<th>Year</th>
+				<th>Percentage of total GHG [gram CO2e] from each LCA stage</th>
+				<th>mega tons CO2e</th>
+				<th>millions of units</th>
+			</tr>
+			<tr class="aYear" id="YEAR-2012">
+				<td class="Year">2012</td>
+				<td class="Bar"></td>
+				<td class="co2">3.11</td>
+				<td class="units">7.86</td>
+			</tr>
+			<tr class="aYear" id="YEAR-2011">
+				<td class="Year">2011</td>
+				<td class="Bar"></td>
+				<td class="co2">3.27</td>
+				<td class="units">7.77</td>
+			</tr>
+			<tr class="aYear" id="YEAR-2010">
+				<td class="Year">2010</td>
+				<td class="Bar"></td>
+				<td class="co2">3.35</td>
+				<td class="units">7.73</td>
+			</tr>
+			<tr class="aYear" id="YEAR-2009">
+				<td class="Year">2009</td>
+				<td class="Bar"></td>
+				<td class="co2">3.49</td>
+				<td class="units">7.68</td>
+			</tr>
+			<tr class="aYear" id="YEAR-2008">
+				<td class="Year">2008</td>
+				<td class="Bar"></td>
+				<td class="co2">3.61</td>
+				<td class="units">7.54</td>
+			</tr>
+		</table>
+	
+		<h3>Achievements</h3>
+		<p>100% of US pint containers made with Forest Stewardship Council (FSC) certified paperboard.</p>
+		
+		<h3>Opportunities</h3>
+		<p>Ensure 100% of European pint containers are made with Forest Stewardship Council (FSC) certified paperboard.</p>
+		
+		<h3>Guidance for Suppliers</h3>
+		<p>Install hydrocarbon freezers for increased energy efficiency and overall cost reduction.</p>
+		
+		<h3>Guidance for Consumers</h3>
+		<p>Recycle packaging.</p>
+	
+	</section>
+	
+<!--#include virtual="javascripts.html" -->
+<script src="js/coclear-overview.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>
