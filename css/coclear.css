@@ -527,6 +527,20 @@ div#LIST-VIEW {
 	float: left;
 }
 
+#PIE-CHART.Chart svg g path {
+	stroke: #fff;
+	fill-rule: evenodd;
+}
+
+#PIE-CHART.Chart svg text {
+	color: white;
+	font-size: 0.5em;
+}
+
+#PIE-CHART.Chart svg text.Depth1 {
+	font-size: 1em;
+}
+
 /* Public Disclosure  page * * * * * * * * * * * * * * * * * * * */
 
 #ORGANIZATION-OVERVIEW th {

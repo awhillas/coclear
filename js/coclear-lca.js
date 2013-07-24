@@ -19,9 +19,10 @@
 		listView();
 		fullLCA();
 		$( "#LIST-VIEW" ).accordion({ heightStyle: "content", collapsible: true, active: false });
-
-		pieChart(d3.select("#PIE-CHART"), CC.prtnData);
-		emissonsChart(d3.select("#EMISSIONS-CHART"), CC.cleanData);
+		
+		starBurstChart(d3.select("#PIE-CHART"), CC.prtnData);
+//		pieChart(d3.select("#PIE-CHART"), CC.prtnData);
+//		emissonsChart(d3.select("#EMISSIONS-CHART"), CC.cleanData);
 	};
 
 	// Render the List view chart via Mustache
@@ -162,6 +163,149 @@
 		// 	.attr("transform", "translate(" + -200  + "," + 20 + ")");
 		htmlLegend("#PIE-CHART");
 	};
+
+	/*
+		see: http://bl.ocks.org/mbostock/4063423
+	*/
+	function starBurstChart(chart, data) {
+		var width = 700,
+			height = width,
+			radius = Math.min(width, height) / 2.5,
+			color = CC.colours, //d3.scale.category20c(),
+			duration = 1000,
+			padding = 5
+		;
+		var x = d3.scale.linear()
+			.range([0, 2 * Math.PI]);
+
+		var y = d3.scale.sqrt()
+			.range([0, radius]);
+
+		var svg = chart
+			.append("svg")
+				.attr("width", width)
+				.attr("height", height)
+				.attr("class", "Pie")
+			.append("g")
+			    .attr("transform", "translate(" + width / 2 + "," + height * .52 + ")");
+		;
+
+		var partition = d3.layout.partition()
+			.sort(null)
+			.value(function(d) { return d.data["GHG [gram CO2e]"]; });
+
+		var arc = d3.svg.arc()
+			.startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+			.endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+			.innerRadius(function(d) { return Math.max(0, y(d.y)); })
+			.outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
+
+		var path = svg.selectAll("path").data(partition.nodes(data))
+			.enter().append("path")
+				.attr("d", arc)
+//				.attr("stroke", "white")
+//				.attr("stroke-width", 1)
+				.style("fill", function(d) { return color((d.children ? d : d.parent).name); })
+				.on("click", click)
+		;
+		function click(d) {
+			path.transition()
+				.duration(duration)
+				.attrTween("d", arcTween(d));
+				
+			    // Somewhat of a hack as we rely on arcTween updating the scales.
+			    text.style("visibility", function(e) {
+			          return isParentOf(d, e) ? null : d3.select(this).style("visibility");
+			        })
+			      .transition()
+			        .duration(duration)
+			        .attrTween("text-anchor", function(d) {
+			          return function() {
+			            return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
+			          };
+			        })
+			        .attrTween("transform", function(d) {
+			          var multiline = (d.name || "").split(" ").length > 1;
+			          return function() {
+			            var angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
+			                rotate = angle + (multiline ? -.5 : 0);
+			            return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
+			          };
+			        })
+			        .style("fill-opacity", function(e) { return isParentOf(d, e) ? 1 : 1e-6; })
+			        .each("end", function(e) {
+			          d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
+			        });
+		}
+		d3.select(self.frameElement).style("height", height + "px");
+		
+		function isParentOf(p, c) {
+		  if (p === c) return true;
+		  if (p.children) {
+		    return p.children.some(function(d) {
+		      return isParentOf(d, c);
+		    });
+		  }
+		  return false;
+		}
+		// Interpolate the scales!
+		function arcTween(d) {
+			var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+				yd = d3.interpolate(y.domain(), [d.y, 1]),
+				yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius])
+			;
+			return function(d, i) {
+				return i
+					? function(t) { return arc(d); }
+					: function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
+			};
+		}
+		jQuery("#PIE-CHART.Chart svg g path:first-child").css("fill", "#ffffff");
+		
+		// Labels
+		// see: https://groups.google.com/forum/#!topic/d3-js/lhHxcNZCK0I
+		// create new text elements and transform them according to the x and y points in the data
+		var text = svg.selectAll("text").data(partition.nodes(data));
+		var textEnter = text.enter().append("text")
+			.style("fill-opacity", 1)
+			// .style("fill", function(d) {
+			// 	return brightness(d3.rgb(color(d))) < 125 ? "#eee" : "#000";
+			// })
+			.attr("text-anchor", function(d) {
+				return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
+			})
+			.attr("dy", ".2em")
+			.attr("transform", function(d) {
+				var multiline = (d.name || "").split(" ").length > 1,
+					angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
+					rotate = angle + (multiline ? -.5 : 0)
+				;
+				return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
+			})
+			.attr("class", function(d) { d.depth==1?log(d):''; return "Label Depth" + d.depth; })
+			.on("click", click);
+		// put the first word on the first line within a tspan
+		textEnter.each(function(d){ 
+			var words = (d.depth) ? d.name.split(" "): [];
+			_.each(words, function(word, i) {
+				d3.select(this).append("tspan")
+					.attr("x", 0)
+					.attr("dy", "1em")
+					.text(word);
+			}, this)
+		});
+		
+		/*
+		textEnter.append("tspan")
+			.attr("x", 0)
+			.text(function(d) { return d.depth ? d.name.split(" ")[0] : ""; });
+		// put the second word on the second line, if there is one.
+		textEnter.append("tspan")
+			.attr("x", 0)
+			.attr("dy", "1em")
+			.text(function(d) { return d.depth ? d.name.split(" ")[1] || "" : ""; });			
+		*/
+	}
 
 	// Draw SVG Chart
 	function emissonsChart(chart, data) {
