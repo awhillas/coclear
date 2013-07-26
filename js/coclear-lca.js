@@ -206,13 +206,13 @@
 				.attr("d", arc)
 				.style("fill", function(d) { return color((d.children ? d : d.parent).name); })
 				.on("click", click)
-				.on("mouseover", show)
+//				.on("mouseover", show)
 		;
 		function click(d) {
 			path.transition()
 				.duration(duration)
 				.attrTween("d", arcTween(d));
-/*				
+				
 			    // Somewhat of a hack as we rely on arcTween updating the scales.
 				text.style("visibility", function(e) {
 					return isParentOf(d, e) ? null : d3.select(this).style("visibility");
@@ -236,7 +236,6 @@
 				.each("end", function(e) {
 					d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
 				});
-*/
 		}
 		d3.select(self.frameElement).style("height", height + "px");
 		
