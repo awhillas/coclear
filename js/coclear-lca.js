@@ -212,30 +212,7 @@
 			path.transition()
 				.duration(duration)
 				.attrTween("d", arcTween(d));
-				
-			    // Somewhat of a hack as we rely on arcTween updating the scales.
-				text.style("visibility", function(e) {
-					return isParentOf(d, e) ? null : d3.select(this).style("visibility");
-				})
-				.transition()
-				.duration(duration)
-				.attrTween("text-anchor", function(d) {
-					return function() {
-						return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
-					};
-				})
-				.attrTween("transform", function(d) {
-					var multiline = (d.name || "").split(" ").length > 1;
-					return function() {
-						var angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
-						rotate = angle + (multiline ? -.5 : 0);
-						return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
-					};
-				})
-				.style("fill-opacity", function(e) { return isParentOf(d, e) ? 1 : 1e-6; })
-				.each("end", function(e) {
-					d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
-				});
+
 		}
 		d3.select(self.frameElement).style("height", height + "px");
 		
@@ -262,75 +239,6 @@
 			};
 		}
 		jQuery("#PIE-CHART.Chart svg g path:first-child").css("fill", "#ffffff");
-/*
-		// Labels
-		// see: https://groups.google.com/forum/#!topic/d3-js/lhHxcNZCK0I
-		// create new text elements and transform them according to the x and y points in the data
-		var text = svg.selectAll("text").data(partition.nodes(data));
-		var textEnter = text.enter().append("text")
-			.style("fill-opacity", 1)
-			// .style("fill", function(d) {
-			// 	return brightness(d3.rgb(color(d))) < 125 ? "#eee" : "#000";
-			// })
-			.attr("text-anchor", function(d) {
-				return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
-			})
-			.attr("dy", ".2em")
-			.attr("transform", function(d) {
-				var multiline = (d.name || "").split(" ").length > 1,
-					angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
-					rotate = angle + (multiline ? -.5 : 0)
-				;
-				return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
-			})
-			.attr("class", function(d) { 
-//				d.depth==1?log(d):''; 
-				return "Label Depth" + d.depth; 
-			})
-			.on("click", click);
-		
-		textEnter.append("tspan")
-			.attr("x", 0)
-			.text(function(d) {
-				var out = "";
-				if (d.depth == 1) {
-					if(d.stageName) {
-						parts = d.stageName.split(" - ")
-						out = parts[1];
-					} 
-					else {
-						out = d.name;
-					} 
-				}
-				if (out.length > 10)
-					return out.substring(0, 10) + "...";
-				else
-					return out;
-			});
-*/		
-		/*	
-		// Put each word on a seperate line
-		textEnter.each(function(d){ 
-			var words = (d.depth) ? d.name.split(" "): [];
-			_.each(words, function(word, i) {
-				d3.select(this).append("tspan")
-					.attr("x", 0)
-					.attr("dy", "1em")
-					.text(word);
-			}, this)
-		});
-		*/
-		/*
-		// put the first word on the first line within a tspan
-		textEnter.append("tspan")
-			.attr("x", 0)
-			.text(function(d) { return d.depth ? d.name.split(" ")[0] : ""; });
-		// put the second word on the second line, if there is one.
-		textEnter.append("tspan")
-			.attr("x", 0)
-			.attr("dy", "1em")
-			.text(function(d) { return d.depth ? d.name.split(" ")[1] || "" : ""; });			
-		*/
 	}
 
 	function emissionsFactorChart(chart, data) {	
