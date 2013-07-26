@@ -10,7 +10,8 @@
 	// Public / / / / / / / / / / / / / / / / / / / /
 
 	// Remote LCA CSV source
-	CC.dataURL = "https://docs.google.com/spreadsheet/pub?key=0AjthvtYrD2MfdEtZS2ZOMXlrbXVqTm4tMUUzVDhOeFE&single=true&gid=1&output=csv";
+	//CC.dataURL = "https://docs.google.com/spreadsheet/pub?key=0AjthvtYrD2MfdEtZS2ZOMXlrbXVqTm4tMUUzVDhOeFE&single=true&gid=1&output=csv";
+	CC.dataURL = "bnj-lca-2013-07-26.csv";
 	
 	// Store scrubbed CSV data
 	CC.cleanData = false;
@@ -36,17 +37,11 @@
 	// Public methods / / / / / / / / / / / / / / / /
 
 	CC.init = function() {
-
-		if (typeof CC.dataURL === undefined)
-			CC.dataURL = "bnj-lca-2012.csv";	// Fallback
-
 		// Load CSV data and scrub it.
 		d3.csv(CC.dataURL, function(error, data) {
 			if(error)
 				return log(error);
-
 			CC.cleanData = cleanData(data);
-
 			// Call a page Initialisation funciton if its defined.
 			if(CC.pageInit !== undefined) {
 				CC.pageInit();
@@ -144,7 +139,6 @@
 			});
 			// Totals for each stage.
 			with(currentStage.sum) {
-				amount += el["Amount per FU"];
 				ghg += el["GHG [gram CO2e]"];
 				expense += el.cost;
 			}

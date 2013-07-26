@@ -24,11 +24,11 @@
 	
 		<div id="TABS">
 			<ul>
-				<li><a href="#tabs-1">list view</a></li>
-				<li><a href="#tabs-2">pie chart</a></li>
-				<li><a href="#tabs-3">emissions chart</a></li>
-				<li><a href="#tabs-4">EF Quality</a></li>
-				<li><a href="#tabs-5">view complete LCA inventory</a></li>
+				<li><a href="#tabs-1">List view</a></li>
+				<li><a href="#tabs-2">Pie chart</a></li>
+				<!-- <li><a href="#tabs-3">emissions chart</a></li> -->
+				<li><a href="#tabs-4">EF vs GHG quantity</a></li>
+				<li><a href="#tabs-5">View complete LCA inventory</a></li>
 			</ul>
 			<div id="tabs-1">
 				<div class="StageHeaders">
@@ -77,11 +77,13 @@
 			<div id="tabs-2">
 				<div id="PIE-CHART" class="Chart"></div>
 			</div>
+			<!-- 
 			<div id="tabs-3">
 				<div id="EMISSIONS-CHART" class="Chart"></div>
-			</div>
+			</div> 
+			-->
 			<div id="tabs-4">
-				<p>EF Quality</p>
+				<p>EF vs GHG quantity</p>
 				<div id="EF-CHART" class="Chart"></div>
 			</div>
 			<div id="tabs-5">

@@ -537,8 +537,29 @@ div#LIST-VIEW {
 	font-size: 0.5em;
 }
 
-#PIE-CHART.Chart svg text.Depth1 {
-	font-size: 1em;
+
+/* EF vs GHG quantity Chart */
+
+#EF-CHART.Chart svg {
+	padding: 5em;
+}
+#EF-CHART.Chart svg circle {
+	stroke: black; 
+	stroke-width: 1;
+}
+#EF-CHART.Chart svg circle:hover {
+	opacity: 0.8;
+}
+#EF-CHART .axis path,
+#EF-CHART .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+#EF-CHART text {
+    font-size: 0.8em;
+}
+#EF-CHART text.Label {
 }
 
 /* Public Disclosure  page * * * * * * * * * * * * * * * * * * * */

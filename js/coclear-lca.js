@@ -21,6 +21,7 @@
 		$( "#LIST-VIEW" ).accordion({ heightStyle: "content", collapsible: true, active: false });
 		
 		starBurstChart(d3.select("#PIE-CHART"), CC.prtnData);
+		emissionsFactorChart(d3.select("#EF-CHART"), CC.cleanData);
 //		pieChart(d3.select("#PIE-CHART"), CC.prtnData);
 //		emissonsChart(d3.select("#EMISSIONS-CHART"), CC.cleanData);
 	};
@@ -203,42 +204,43 @@
 		var path = svg.selectAll("path").data(partition.nodes(data))
 			.enter().append("path")
 				.attr("d", arc)
-//				.attr("stroke", "white")
-//				.attr("stroke-width", 1)
 				.style("fill", function(d) { return color((d.children ? d : d.parent).name); })
 				.on("click", click)
+				.on("mouseover", show)
 		;
 		function click(d) {
 			path.transition()
 				.duration(duration)
 				.attrTween("d", arcTween(d));
-				
+/*				
 			    // Somewhat of a hack as we rely on arcTween updating the scales.
-			    text.style("visibility", function(e) {
-			          return isParentOf(d, e) ? null : d3.select(this).style("visibility");
-			        })
-			      .transition()
-			        .duration(duration)
-			        .attrTween("text-anchor", function(d) {
-			          return function() {
-			            return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
-			          };
-			        })
-			        .attrTween("transform", function(d) {
-			          var multiline = (d.name || "").split(" ").length > 1;
-			          return function() {
-			            var angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
-			                rotate = angle + (multiline ? -.5 : 0);
-			            return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
-			          };
-			        })
-			        .style("fill-opacity", function(e) { return isParentOf(d, e) ? 1 : 1e-6; })
-			        .each("end", function(e) {
-			          d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
-			        });
+				text.style("visibility", function(e) {
+					return isParentOf(d, e) ? null : d3.select(this).style("visibility");
+				})
+				.transition()
+				.duration(duration)
+				.attrTween("text-anchor", function(d) {
+					return function() {
+						return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
+					};
+				})
+				.attrTween("transform", function(d) {
+					var multiline = (d.name || "").split(" ").length > 1;
+					return function() {
+						var angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
+						rotate = angle + (multiline ? -.5 : 0);
+						return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
+					};
+				})
+				.style("fill-opacity", function(e) { return isParentOf(d, e) ? 1 : 1e-6; })
+				.each("end", function(e) {
+					d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
+				});
+*/
 		}
 		d3.select(self.frameElement).style("height", height + "px");
 		
+		// TODO: re-indent this...
 		function isParentOf(p, c) {
 		  if (p === c) return true;
 		  if (p.children) {
@@ -261,7 +263,7 @@
 			};
 		}
 		jQuery("#PIE-CHART.Chart svg g path:first-child").css("fill", "#ffffff");
-		
+/*
 		// Labels
 		// see: https://groups.google.com/forum/#!topic/d3-js/lhHxcNZCK0I
 		// create new text elements and transform them according to the x and y points in the data
@@ -282,9 +284,33 @@
 				;
 				return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
 			})
-			.attr("class", function(d) { d.depth==1?log(d):''; return "Label Depth" + d.depth; })
+			.attr("class", function(d) { 
+//				d.depth==1?log(d):''; 
+				return "Label Depth" + d.depth; 
+			})
 			.on("click", click);
-		// put the first word on the first line within a tspan
+		
+		textEnter.append("tspan")
+			.attr("x", 0)
+			.text(function(d) {
+				var out = "";
+				if (d.depth == 1) {
+					if(d.stageName) {
+						parts = d.stageName.split(" - ")
+						out = parts[1];
+					} 
+					else {
+						out = d.name;
+					} 
+				}
+				if (out.length > 10)
+					return out.substring(0, 10) + "...";
+				else
+					return out;
+			});
+*/		
+		/*	
+		// Put each word on a seperate line
 		textEnter.each(function(d){ 
 			var words = (d.depth) ? d.name.split(" "): [];
 			_.each(words, function(word, i) {
@@ -294,8 +320,9 @@
 					.text(word);
 			}, this)
 		});
-		
+		*/
 		/*
+		// put the first word on the first line within a tspan
 		textEnter.append("tspan")
 			.attr("x", 0)
 			.text(function(d) { return d.depth ? d.name.split(" ")[0] : ""; });
@@ -307,7 +334,86 @@
 		*/
 	}
 
-	// Draw SVG Chart
+	function emissionsFactorChart(chart, data) {	
+		var width = 700,
+			height = 500,
+			pad = 20,
+			left_pad = 100,
+			ticks = 50,
+			color = CC.colours,
+			lower_limit = 0.001
+		;
+		// Sort Data. Big ones first by cost.
+		data.sort(function(a,b) { return b.cost - a.cost });
+
+		// Scale functions
+		var x = d3.scale.log()
+			.domain([lower_limit, d3.max(data, function(d){ return d['EF'] })])
+			.range([left_pad, width - pad])
+		;
+		var y = d3.scale.log()
+			// bottom value must be > 0 for log() scale
+			//.domain([0.001, d3.max(data, function(d){ return d['GHG [gram CO2e]'] })]) 
+			.domain([d3.max(data, function(d){ return d['GHG [gram CO2e]'] }), lower_limit]) 
+			.range([pad, height - pad * 2])
+		;
+		var cost = d3.scale.linear()
+			.domain([lower_limit, d3.max(data, function(d){ return d['cost'] })])
+			.range([1, 50])	// 50 seems good. Perhaps should be a % of total area.
+
+		//Create SVG element
+		var svg = chart
+			.append("svg")
+			.attr("width", width)
+			.attr("height", height)
+		;
+		
+		// Axis' - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		
+		var formatInt = d3.format("d");
+		var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(20, function(d, i) { return formatInt(d) }),
+		    yAxis = d3.svg.axis().scale(y).orient("left").ticks(10, function(d, i) { return formatInt(d) });
+		var axisX = svg.append("g")
+			.attr("class", "axis")
+			.attr("transform", "translate(0, "+(height - pad)+")")
+			.call(xAxis);
+		var axisY = svg.append("g")
+			.attr("class", "axis")
+			.attr("transform", "translate("+(left_pad - pad)+", 0)")
+			.call(yAxis);
+		// Lables (see: http://stackoverflow.com/questions/11189284/d3-axis-labeling)
+		svg.append("text")
+			.attr("class", "X Label")
+			.attr("text-anchor", "end")
+			.attr("x", "70%")
+			.attr("y", height + pad)
+			.text("Emmisions Factor [kg CO2/Unit]");
+		svg.append("text")
+			.attr("class", "Y Label")
+			.attr("text-anchor", "end")
+			.attr("x", "-20%")
+			.attr("y", pad)
+			.attr("dy", ".75em")
+			.attr("transform", "rotate(-90)")
+			.text("GHG [gram CO2e]");
+
+		// Data - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		
+		svg.selectAll("circle")
+		   .data(data)
+		   .enter()
+			   .append("circle")
+					.attr("cx",	function(d) { return x(d['EF']) > lower_limit ? x(d['EF']): lower_limit; })
+					.attr("cy",	function(d) { return y(d['GHG [gram CO2e]']) > lower_limit ? y(d['GHG [gram CO2e]']): lower_limit })
+					.attr("r",	function(d) { return cost(d.cost) })
+					.attr("fill", function(d,i) { return CC.colours(d.stage.substr(1)) })
+		;
+
+	}
+
+	/**
+	 * Draw SVG Chart
+	 */
 	function emissonsChart(chart, data) {
 
 		var margin = {top: 10, right: 0, bottom: 30, left: 40},
@@ -381,7 +487,7 @@
 			.attr("height", function(d) { return y(d['GHG [gram CO2e]']) })
 			// Tool Tips on Bars
 			.append("svg:title")
-			   .text(function(d) { return d['Contribution'] + " : " + d["GHG [gram CO2e]"] + " GHG [gram CO2e]"; });
+				.text(function(d) { return d['Contribution'] + " : " + d["GHG [gram CO2e]"] + " GHG [gram CO2e]"; });
 		;
 		// Tool tips popup
 		$("svg rect.Bar").tipsy({
@@ -395,5 +501,11 @@
 		htmlLegend("#EMISSIONS-CHART");
 	};
 
+	function findCenter(path) {
+		var bbox = p.getBBox(); // Get bounding Box
+		var x = Math.floor(bbox.x + bbox.width/2.0); 
+		var y = Math.floor(bbox.y + bbox.height/2.0);
+		return {"x": x, "y": y};
+	}
 
 }( window.CC = window.CC || {}, jQuery));
