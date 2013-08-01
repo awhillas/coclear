@@ -169,15 +169,17 @@
 		see: http://bl.ocks.org/mbostock/4063423
 	*/
 	function starBurstChart(chart, data) {
-		var width = 700,
-			height = width,
+		var width = 850,
+			height = 700,
+			box_width = 200,
+			box_height = 200,
 			radius = Math.min(width, height) / 2.5,
 			color = CC.colours, //d3.scale.category20c(),
 			duration = 1000,
 			padding = 5
 		;
 		var x = d3.scale.linear()
-			.range([0, 2 * Math.PI]);
+			.range([0, 2 * Math.PI]);	
 
 		var y = d3.scale.sqrt()
 			.range([0, radius]);
@@ -188,9 +190,10 @@
 				.attr("height", height)
 				.attr("class", "Pie")
 			.append("g")
-			    .attr("transform", "translate(" + width / 2 + "," + height * .52 + ")");
+			    .attr("transform", "translate(" + radius + "," + height * .52 + ")");
 		;
 
+			
 		var partition = d3.layout.partition()
 			.sort(null)
 			.value(function(d) { return d.data["GHG [gram CO2e]"]; });
@@ -206,26 +209,20 @@
 				.attr("d", arc)
 				.style("fill", function(d) { return color((d.children ? d : d.parent).name); })
 				.on("click", click)
-//				.on("mouseover", show)
+				.on("mouseover", show)
+				.on("mouseout", function(){ d3.select("#PIE-TOOLTIP").style("visibility", "hidden") })
+				.on("mousemove", function(){ d3.select("#PIE-TOOLTIP").style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px") })
 		;
+		d3.select(self.frameElement).style("height", height + "px");
+		// Center white
+		jQuery("#PIE-CHART.Chart svg g path:first-child").css("fill", "#fff");		
+
 		function click(d) {
 			path.transition()
 				.duration(duration)
 				.attrTween("d", arcTween(d));
 
-		}
-		d3.select(self.frameElement).style("height", height + "px");
-		
-		// TODO: re-indent this...
-		function isParentOf(p, c) {
-		  if (p === c) return true;
-		  if (p.children) {
-		    return p.children.some(function(d) {
-		      return isParentOf(d, c);
-		    });
-		  }
-		  return false;
-		}
+		}		
 		// Interpolate the scales!
 		function arcTween(d) {
 			var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
@@ -238,7 +235,33 @@
 					: function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
 			};
 		}
-		jQuery("#PIE-CHART.Chart svg g path:first-child").css("fill", "#ffffff");
+		function show(d) {
+			var tooltip = d3.select("#PIE-TOOLTIP")
+				.style("visibility", "visible")
+				.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
+			;
+			// TODO: The totals/sum should be the same at all levels
+			if(!d.parent) {
+				// Shallow copy
+				var display = jQuery.extend({}, d.totals);
+				display.title = "LCA Totals"
+			} else if(d.stageName) {
+				var display = jQuery.extend({}, d.sum);
+				display.title = d.stageName
+			} else {
+				var display = {
+					title: d.name,
+					expense: d.data.cost,
+					ghg: d.data["GHG [gram CO2e]"]
+				}
+			}
+			populateToolTip(tooltip, display);
+		}
+		function populateToolTip(div, d) {
+			d3.select("#PIE-TOOLTIP .Title").text(d.title);
+			d3.select("#PIE-TOOLTIP .Ghg .Value").text(CC.round(d.ghg));
+			d3.select("#PIE-TOOLTIP .Expense .Value").text(CC.round(d.expense));
+		}
 	}
 
 	function emissionsFactorChart(chart, data) {	

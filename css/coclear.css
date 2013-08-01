@@ -382,20 +382,20 @@ body.lca .Options {
 
 
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
-color: orange;
+	color: orange;
 }
 
 
 .ui-tabs .ui-tabs-panel {
 	padding: 0;
 	background-color:white;
-
-
 }
 
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-border: none;
-background: none;
+.ui-state-default, 
+.ui-widget-content .ui-state-default, 
+.ui-widget-header .ui-state-default {
+	border: none;
+	background: none;
 }
 
 .ui-widget-header {
@@ -408,8 +408,8 @@ background: none;
 }
 
 div#TABS {
-border: none;
-margin-top: 60px;
+	border: none;
+	margin-top: 60px;
 }
 
 #TABS div.StageHeaders  {
@@ -428,7 +428,10 @@ padding-left:40px;
 
 }
 
-#TABS span.StageName, #TABS span.Amount, #TABS span.ghg, #TABS span.Expense {
+#TABS span.StageName, 
+#TABS span.Amount, 
+#TABS span.ghg, 
+#TABS span.Expense {
 	display:inline-block;
 }
 
@@ -454,9 +457,7 @@ padding-left:40px;
 .TableView td {
 	font-size: 0.7em;
 	padding: 1em 1em 1em 0;
-
 }
-
 
 #FULL-LCA caption {
 	font-size: 0.9em;
@@ -503,15 +504,30 @@ ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
     border-bottom-left-radius: 0px;
 }
 
+
+/* * * * * * * Tooltip */
+
+.ToolTip {
+	border: 1px solid black;
+	padding: 1em;
+	position: absolute;
+	visibility: hidden;
+	background-color: white;
+}
+.ToolTip .Value {
+	font-weight: bold;
+}
+
+
+/* * * * * * * List View */
+
 div#LIST-VIEW {
 	margin-top: 10px;
 }
-
 /* Legend text */ 
 /*svg .legend text {
 	font-size: 10px;
 }*/
-
 .Legend {
 	float: right;
 	width: 250px;
@@ -536,9 +552,18 @@ div#LIST-VIEW {
 	color: white;
 	font-size: 0.5em;
 }
+#PIE-CHART text {
+	font-weight: bold;
+}
+#PIE-CHART text .GhgUnits {
+	font-weight: normal;
+}
+#PIE-CHART path:hover {
+	opacity: 0.8;
+}
 
 
-/* EF vs GHG quantity Chart */
+/* * * * * * * EF vs GHG quantity Chart */
 
 #EF-CHART.Chart svg {
 	padding: 5em;

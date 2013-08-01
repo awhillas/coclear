@@ -131,6 +131,19 @@
 		</div>
 	</section>
 
+<div id="PIE-TOOLTIP" class="ToolTip">
+	<div class="Title"></div>
+	<div class="Ghg"><span class="Value"></span> GHG [gram CO2e]</div>
+	<div class="Expense">$<span class="Value"></span> expense/unit</div>
+</div>
+
+<!-- <div id="TOOLTIP" class="ToolTip">
+	<div class="Title"></div>
+	<div class="Ghg"><span class="Value"></span> GHG [gram CO2e]</div>
+	<div class="Expense">$<span class="Value"></span> expense/unit</div>
+</div>
+ -->
+
 <script id="legendTemplate" type="text/template">
 	<div class="Legend">
 		<ul>
