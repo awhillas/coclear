@@ -132,17 +132,19 @@
 	</section>
 
 <div id="PIE-TOOLTIP" class="ToolTip">
-	<div class="Title"></div>
+	<div class="Title"><span class="Value"></span></div>
 	<div class="Ghg"><span class="Value"></span> GHG [gram CO2e]</div>
-	<div class="Expense">$<span class="Value"></span> expense/unit</div>
+	<div class="Expense">$<span class="Value"></span> per unit</div>
 </div>
 
-<!-- <div id="TOOLTIP" class="ToolTip">
-	<div class="Title"></div>
+<div id="EF-TOOLTIP" class="ToolTip">
+	<div class="Title"><span class="Value"></span></div>
+	<div class="Stage">LCA Stage: <span class="Value"></span></div>
 	<div class="Ghg"><span class="Value"></span> GHG [gram CO2e]</div>
-	<div class="Expense">$<span class="Value"></span> expense/unit</div>
+	<div class="Expense">$<span class="Value"></span> per unit</div>
+	<div class="Ef">EF: <span class="Value"></span></div>
 </div>
- -->
+
 
 <script id="legendTemplate" type="text/template">
 	<div class="Legend">

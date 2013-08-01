@@ -209,7 +209,7 @@
 				.attr("d", arc)
 				.style("fill", function(d) { return color((d.children ? d : d.parent).name); })
 				.on("click", click)
-				.on("mouseover", show)
+				.on("mouseover", function(d){ show("#PIE-TOOLTIP", event, d) })
 				.on("mouseout", function(){ d3.select("#PIE-TOOLTIP").style("visibility", "hidden") })
 				.on("mousemove", function(){ d3.select("#PIE-TOOLTIP").style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px") })
 		;
@@ -235,11 +235,7 @@
 					: function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
 			};
 		}
-		function show(d) {
-			var tooltip = d3.select("#PIE-TOOLTIP")
-				.style("visibility", "visible")
-				.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
-			;
+		function show(id, event, d) {
 			// TODO: The totals/sum should be the same at all levels
 			if(!d.parent) {
 				// Shallow copy
@@ -255,13 +251,8 @@
 					ghg: d.data["GHG [gram CO2e]"]
 				}
 			}
-			populateToolTip(tooltip, display);
-		}
-		function populateToolTip(div, d) {
-			d3.select("#PIE-TOOLTIP .Title").text(d.title);
-			d3.select("#PIE-TOOLTIP .Ghg .Value").text(CC.round(d.ghg));
-			d3.select("#PIE-TOOLTIP .Expense .Value").text(CC.round(d.expense));
-		}
+			populateToolTip(id, event, display);
+		}		
 	}
 
 	function emissionsFactorChart(chart, data) {	
@@ -271,7 +262,8 @@
 			left_pad = 100,
 			ticks = 50,
 			color = CC.colours,
-			lower_limit = 0.001
+			lower_limit = 0.001,
+			tooltip = d3.select("#EF-TOOLTIP")
 		;
 		// Sort Data. Big ones first by cost.
 		data.sort(function(a,b) { return b.cost - a.cost });
@@ -337,10 +329,40 @@
 					.attr("cy",	function(d) { return y(d['GHG [gram CO2e]']) > lower_limit ? y(d['GHG [gram CO2e]']): lower_limit })
 					.attr("r",	function(d) { return cost(d.cost) })
 					.attr("fill", function(d,i) { return CC.colours(d.stage.substr(1)) })
+					.on("mouseover", function(d){ show("#EF-TOOLTIP", event, d) })
+					.on("mouseout", function(){ tooltip.style("visibility", "hidden") })
+					.on("mousemove", function(){ tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px") })					
 		;
 
+		// Translate the data, d, into standard interface for the tooltip
+		function show(id, event, d) {
+			var display = {
+				title: d.Contribution,
+				expense: d.cost,
+				ghg: d["GHG [gram CO2e]"],
+				stage: d.stage,
+				ef: d.EF
+			}
+			populateToolTip(id, event, display);
+		}
 	}
-
+	// Tooltip: Fill in the given details for the given tool tip id
+	function populateToolTip(id, event, d) {
+		var tooltip = d3.select(id)
+			.style("visibility", "visible")
+			.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px")
+		;
+		for(var i in d) {
+			d3.select(id + " ." + capitaliseFirstLetter(i) + " .Value").text(isNumber(d[i]) ? CC.round(d[i]) : d[i]);
+		}
+	}
+	function capitaliseFirstLetter(string)
+	{
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+	function isNumber(n) {
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	}	
 	/**
 	 * Draw SVG Chart
 	 */

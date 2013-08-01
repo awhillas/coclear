@@ -514,6 +514,7 @@ ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
 	visibility: hidden;
 	background-color: white;
 }
+.ToolTip .Title,
 .ToolTip .Value {
 	font-weight: bold;
 }
