@@ -21,6 +21,8 @@
 	<section>
 
 <!--#include virtual="menu-lca.html" -->
+
+		<h2>Product Life Cycle Inventory, Emissions & Costs</h2>
 	
 		<div id="TABS">
 			<ul>
@@ -38,7 +40,6 @@
 					<span class="Expense">Company Expense</span>
 					<span class="Performance">Performance</span>
 				</div>
-				
 				<script id="listViewTemplate" type="text/template">
 				{{#children}}
 					<h3>
@@ -83,8 +84,24 @@
 			</div> 
 			-->
 			<div id="tabs-4">
-				<p>EF vs GHG quantity</p>
 				<div id="EF-CHART" class="Chart"></div>
+				<div class="yui3-g ExploreOptions">
+					<div class="yui3-u-7-24">
+						<h2>Material Opportunity</h2>
+						Raw Milk is x% of the final product, y% of total GHG (CO2e) z% of company expense.
+						<a href="#" class="ExploreButton">Explore scenarios</a>
+					</div>
+					<div class="yui3-u-7-24">
+						<h2>Process Opportunity</h2>
+						Shipping vanilla extract from Indonesia is x% of total GHG (CO2e) z% of company expense.
+						<a href="#" class="ExploreButton">Explore scenarios</a>
+					</div>
+					<div class="yui3-u-7-24">
+						<h2>Activity Opportunity</h2>
+						Retail refrigeration is x% of total GHG (CO2e) z% of company expense.
+						<a href="#" class="ExploreButton">Explore scenarios</a>
+					</div>
+				</div>
 			</div>
 			<div id="tabs-5">
 				<script id="fullLCA" type="text/template">
@@ -148,6 +165,7 @@
 
 <script id="legendTemplate" type="text/template">
 	<div class="Legend">
+		<h2>Life Cycle Stages</h2>
 		<ul>
 			{{#children}}
 				<li><span class="{{name}} StageColour"></span> {{stageName}}</li>

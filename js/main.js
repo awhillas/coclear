@@ -10,8 +10,8 @@
 	// Public / / / / / / / / / / / / / / / / / / / /
 
 	// Remote LCA CSV source
-	//CC.dataURL = "https://docs.google.com/spreadsheet/pub?key=0AjthvtYrD2MfdEtZS2ZOMXlrbXVqTm4tMUUzVDhOeFE&single=true&gid=1&output=csv";
-	CC.dataURL = "bnj-lca-2013-07-26.csv";
+	CC.dataURL = "https://docs.google.com/spreadsheet/pub?key=0AjthvtYrD2MfdEtZS2ZOMXlrbXVqTm4tMUUzVDhOeFE&single=true&gid=1&output=csv";
+	//CC.dataURL = "bnj-lca-2013-07-26.csv";
 	
 	// Store scrubbed CSV data
 	CC.cleanData = false;

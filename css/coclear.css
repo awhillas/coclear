@@ -409,7 +409,7 @@ body.lca .Options {
 
 div#TABS {
 	border: none;
-	margin-top: 60px;
+/*	margin-top: 60px;*/
 }
 
 #TABS div.StageHeaders  {
@@ -519,26 +519,38 @@ ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
 	font-weight: bold;
 }
 
+/* * * * * * * Legend (shared) */
+
+.Legend {
+	float: right;
+	width: 180px;
+	font-size: 0.7em;
+	border: 1px solid black;
+	padding: 1em;
+}
+.Legend h2 {
+	padding-top: 0;
+	border-bottom: 1px solid #999;
+}
+.Legend ul {
+	padding: 0;
+}
+.Legend li {
+	padding: 0.4em 0em 0.5em 1.5em;
+}
+.Legend .StageColour {
+	width: 1em;
+	height: 1em;
+	margin-left: -1.5em;
+	display: inline-block;
+}
 
 /* * * * * * * List View */
 
 div#LIST-VIEW {
 	margin-top: 10px;
 }
-/* Legend text */ 
-/*svg .legend text {
-	font-size: 10px;
-}*/
-.Legend {
-	float: right;
-	width: 250px;
-	font-size: 0.6em;
-}
-.Legend .StageColour {
-	width: 10px;
-	height: 10px;
-	display: inline-block;
-}
+
 .Chart svg {
 	/* Make room for the legend */
 	float: left;
@@ -567,7 +579,7 @@ div#LIST-VIEW {
 /* * * * * * * EF vs GHG quantity Chart */
 
 #EF-CHART.Chart svg {
-	padding: 5em;
+	padding: 5em 0;
 }
 #EF-CHART.Chart svg circle {
 	stroke: black; 
@@ -586,6 +598,20 @@ div#LIST-VIEW {
     font-size: 0.8em;
 }
 #EF-CHART text.Label {
+}
+
+.ExploreOptions .yui3-u-7-24 	{
+	padding: 1em;
+}
+.ExploreOptions a.ExploreButton{
+	font-size: 0.6em;
+	font-weight: normal;
+	display: block;
+	float: left;
+	padding: 0.5em;
+	background-color: #41B6C4;
+	color: white;
+	margin-top: 1em;
 }
 
 /* Public Disclosure  page * * * * * * * * * * * * * * * * * * * */

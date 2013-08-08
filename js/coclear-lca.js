@@ -89,7 +89,7 @@
 	// Draw Pie Chart
 	function pieChart(chart, data) {
 
-		var width = 700,
+		var width = 650,
 			height = width,
 			radius = Math.min(width, height) / 2.5,
 			color = CC.colours; //d3.scale.category20c(),
@@ -169,8 +169,8 @@
 		see: http://bl.ocks.org/mbostock/4063423
 	*/
 	function starBurstChart(chart, data) {
-		var width = 850,
-			height = 700,
+		var width = 650,
+			height = width,
 			box_width = 200,
 			box_height = 200,
 			radius = Math.min(width, height) / 2.5,
@@ -179,11 +179,11 @@
 			padding = 5
 		;
 		var x = d3.scale.linear()
-			.range([0, 2 * Math.PI]);	
-
+			.range([0, 2 * Math.PI])
+		;
 		var y = d3.scale.sqrt()
-			.range([0, radius]);
-
+			.range([0, radius])
+		;
 		var svg = chart
 			.append("svg")
 				.attr("width", width)
@@ -192,18 +192,16 @@
 			.append("g")
 			    .attr("transform", "translate(" + radius + "," + height * .52 + ")");
 		;
-
-			
 		var partition = d3.layout.partition()
 			.sort(null)
-			.value(function(d) { return d.data["GHG [gram CO2e]"]; });
-
+			.value(function(d) { return d.data["GHG [gram CO2e]"]; })
+		;
 		var arc = d3.svg.arc()
 			.startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
 			.endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
 			.innerRadius(function(d) { return Math.max(0, y(d.y)); })
-			.outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
-
+			.outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); })
+		;
 		var path = svg.selectAll("path").data(partition.nodes(data))
 			.enter().append("path")
 				.attr("d", arc)
@@ -252,11 +250,12 @@
 				}
 			}
 			populateToolTip(id, event, display);
-		}		
+		}
+		htmlLegend("#PIE-CHART");	
 	}
 
 	function emissionsFactorChart(chart, data) {	
-		var width = 700,
+		var width = 650,
 			height = 500,
 			pad = 20,
 			left_pad = 100,
@@ -325,8 +324,8 @@
 		   .data(data)
 		   .enter()
 			   .append("circle")
-					.attr("cx",	function(d) { return x(d['EF']) > lower_limit ? x(d['EF']): lower_limit; })
-					.attr("cy",	function(d) { return y(d['GHG [gram CO2e]']) > lower_limit ? y(d['GHG [gram CO2e]']): lower_limit })
+					.attr("cx",	function(d) { return x(d['EF']); })
+					.attr("cy",	function(d) { return y(d['GHG [gram CO2e]']) })
 					.attr("r",	function(d) { return cost(d.cost) })
 					.attr("fill", function(d,i) { return CC.colours(d.stage.substr(1)) })
 					.on("mouseover", function(d){ show("#EF-TOOLTIP", event, d) })
@@ -345,6 +344,7 @@
 			}
 			populateToolTip(id, event, display);
 		}
+		htmlLegend("#EF-CHART");
 	}
 	// Tooltip: Fill in the given details for the given tool tip id
 	function populateToolTip(id, event, d) {
