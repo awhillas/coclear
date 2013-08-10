@@ -31,7 +31,7 @@ p a, td a {
 }
 h2 {
 	border-bottom: 2px solid black;
-	font-size: 0.9em;
+	font-size: 1.2em;
 	padding-top: 2em;
 	padding-bottom:0.5em;
 	font-weight: bold;
@@ -522,7 +522,6 @@ ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
 /* * * * * * * Legend (shared) */
 
 .Legend {
-	float: right;
 	width: 180px;
 	font-size: 0.7em;
 	border: 1px solid black;
@@ -545,23 +544,30 @@ ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
 	display: inline-block;
 }
 
+.ChartAside select {
+	font-size: 0.7em;
+	margin: 0.5em 0;
+}
+
 /* * * * * * * List View */
 
 div#LIST-VIEW {
 	margin-top: 10px;
 }
 
+/* * * * * * * Pie Chart */
+
 .Chart svg {
-	/* Make room for the legend */
-	float: left;
+	margin: auto;
+	display: block;
 }
 
-#PIE-CHART.Chart svg g path {
+#PIE-CHART .Chart svg g path {
 	stroke: #fff;
 	fill-rule: evenodd;
 }
 
-#PIE-CHART.Chart svg text {
+#PIE-CHART .Chart svg text {
 	color: white;
 	font-size: 0.5em;
 }
@@ -578,14 +584,14 @@ div#LIST-VIEW {
 
 /* * * * * * * EF vs GHG quantity Chart */
 
-#EF-CHART.Chart svg {
-	padding: 5em 0;
+#EF-CHART .Chart svg {
+	padding: 3em;
 }
-#EF-CHART.Chart svg circle {
+#EF-CHART .Chart svg circle {
 	stroke: black; 
 	stroke-width: 1;
 }
-#EF-CHART.Chart svg circle:hover {
+#EF-CHART .Chart svg circle:hover {
 	opacity: 0.8;
 }
 #EF-CHART .axis path,
@@ -600,19 +606,25 @@ div#LIST-VIEW {
 #EF-CHART text.Label {
 }
 
-.ExploreOptions .yui3-u-7-24 	{
-	padding: 1em;
-}
 .ExploreOptions a.ExploreButton{
 	font-size: 0.6em;
 	font-weight: normal;
 	display: block;
-	float: left;
 	padding: 0.5em;
 	background-color: #41B6C4;
 	color: white;
 	margin-top: 1em;
+	max-width: 40%;
 }
+.ExploreOptions {
+	font-size: 0.7em;
+}
+.ExploreOptions > div {
+	margin-right: 1em;
+}
+.ExploreOptions div:last-child {
+	margin: 0;
+} 
 
 /* Public Disclosure  page * * * * * * * * * * * * * * * * * * * */
 

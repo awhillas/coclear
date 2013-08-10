@@ -20,8 +20,8 @@
 		fullLCA();
 		$( "#LIST-VIEW" ).accordion({ heightStyle: "content", collapsible: true, active: false });
 		
-		starBurstChart(d3.select("#PIE-CHART"), CC.prtnData);
-		emissionsFactorChart(d3.select("#EF-CHART"), CC.cleanData);
+		starBurstChart(d3.select("#PIE-CHART .Chart"), CC.prtnData);
+		emissionsFactorChart(d3.select("#EF-CHART .Chart"), CC.cleanData);
 //		pieChart(d3.select("#PIE-CHART"), CC.prtnData);
 //		emissonsChart(d3.select("#EMISSIONS-CHART"), CC.cleanData);
 	};
@@ -53,15 +53,14 @@
 	}
 
 	/*
+		Pie Chart
 		see: http://bl.ocks.org/mbostock/4063423
 	*/
 	function starBurstChart(chart, data) {
-		var width = 650,
-			height = width,
-			box_width = 200,
-			box_height = 200,
-			radius = Math.min(width, height) / 2.5,
-			color = CC.colours, //d3.scale.category20c(),
+		var width = 480,
+			height = width + 20,
+			radius = Math.min(width, height) / 2,
+			color = CC.colours,
 			duration = 1000,
 			padding = 5
 		;
@@ -100,13 +99,14 @@
 		;
 		d3.select(self.frameElement).style("height", height + "px");
 		// Center white
-		jQuery("#PIE-CHART.Chart svg g path:first-child").css("fill", "#fff");		
-
+		jQuery("#PIE-CHART svg g path:first-child").css("fill", "#fff");		
+		
+		// Supporting functions...
+		
 		function click(d) {
 			path.transition()
 				.duration(duration)
 				.attrTween("d", arcTween(d));
-
 		}		
 		// Interpolate the scales!
 		function arcTween(d) {
@@ -138,12 +138,17 @@
 			}
 			populateToolTip(id, event, display);
 		}
-		htmlLegend("#PIE-CHART");	
+		htmlLegend("#PIE-CHART .ChartAside");	
 	}
 
+	/*
+		Bubble Chart
+		Possibly want to do something like this in the end if we get enough time series data:
+		https://github.com/mbostock/bost.ocks.org/blob/gh-pages/mike/nations/index.html
+	*/
 	function emissionsFactorChart(chart, data) {	
-		var width = 650,
-			height = 500,
+		var width = 640,
+			height = 420,
 			pad = 20,
 			left_pad = 100,
 			ticks = 50,
@@ -231,7 +236,7 @@
 			}
 			populateToolTip(id, event, display);
 		}
-		htmlLegend("#EF-CHART");
+		htmlLegend("#EF-CHART .ChartAside .Key");
 	}
 	// Tooltip: Fill in the given details for the given tool tip id
 	function populateToolTip(id, event, d) {

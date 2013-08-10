@@ -76,7 +76,15 @@
 				<div id="LIST-VIEW" class="TableView"></div>
 			</div>
 			<div id="tabs-2">
-				<div id="PIE-CHART" class="Chart"></div>
+				<div id="PIE-CHART" class="yui3-g">
+					<div class="yui3-u-3-4 Chart"></div>
+					<div class="yui3-u-1-4 ChartAside">
+						<select>
+							<option value="GHG [gram CO2e]" select>GHG [gram CO2e] / unit</option>
+							<option value="EF">Emissions Factor / unit</option>
+						</select>
+					</div>
+				</div>
 			</div>
 			<!-- 
 			<div id="tabs-3">
@@ -84,7 +92,24 @@
 			</div> 
 			-->
 			<div id="tabs-4">
-				<div id="EF-CHART" class="Chart"></div>
+				<div id="EF-CHART" class="yui3-g">
+					<div class="yui3-u-3-4 Chart"></div>
+					<div class="yui3-u-1-4 ChartAside">
+						<div class="Key"></div>
+						<select>
+							<option value="log" select>Logarithmic scale on axis</option>
+							<option value="linear">Linear scale on axis</option>
+						</select>
+						<div>
+						<label Class="BubbleSize">Bubble size:</label>
+						<select>
+							<option value="log" select>Annual cost</option>
+							<option value="linear">GHG</option>
+							<option value="linear">Emissions Factor</option>
+						</select>
+						</div>
+					</div>
+				</div>
 				<div class="yui3-g ExploreOptions">
 					<div class="yui3-u-7-24">
 						<h2>Material Opportunity</h2>
